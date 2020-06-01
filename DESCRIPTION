@@ -1,0 +1,20 @@
+Package: bridgePrism
+Title: Peer Models Network PRISM Bridge for the Model MODELNAME
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Amin", "Adibi", email = "adibi@alumni.ubc.ca", role = c("aut", "cph")),
+    person("Mohsen", "Sadatsafavi", email = "mohsen.sadatsafavi@ubc.ca", role = c("aut", "cre")),
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID")))
+Description: Peer Model Network PRISM wrapper for MODELNAME.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    jsonlite,
+    rredis
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
