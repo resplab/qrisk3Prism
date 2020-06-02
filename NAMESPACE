@@ -2,5 +2,6 @@
 
 export(gateway)
 export(prism_model_run)
+import(QRISK3)
 import(jsonlite)
 import(rredis)
