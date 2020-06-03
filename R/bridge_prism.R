@@ -20,7 +20,7 @@
 model_run<-function(model_input = NULL)
 {
 
-  input<-unflatten_list(model_input)
+  # input<-unflatten_list(model_input)
   results <- QRISK3_2017(data       = model_input$data,
                          patid       = model_input$patid,
                          gender       = model_input$gender,
@@ -65,7 +65,8 @@ get_default_input <- function() {
                       ethiniciy="ethrisk", heart_attack_relative="fh_cvd",
                       cholesterol_HDL_ratio="rati", systolic_blood_pressure="sbp",
                       std_systolic_blood_pressure="sbps5", smoke="smoke_cat", townsend="town")
-  return((flatten_list(model_input)))
+  return (model_input)
+  # return((flatten_list(model_input)))
 }
 
 
