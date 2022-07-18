@@ -21,7 +21,50 @@ model_run<-function(model_input = NULL)
 {
 
   # input<-unflatten_list(model_input)
-  results <- QRISK3_2017(data       = model_input$data,
+  
+  if (is.dataframe(model_input$data) == FALSE) {
+    a <- c("ID", "gender", "age", "b_AF", "b_atypicalantipsy", "b_corticosteroids", "b_impotence2", "b_migraine", "b_ra", "b_renal", "b_semi",
+           "b_sle", "b_treatedhyp", "b_type1", "b_type2", "weight", "height", "ethrisk", "fh_cvd", "rati", "sbp", "sbps5", "smoke_cat", "town")
+    b <- c(1, model_input$gender, model_input$age, model_input$atrial_fibrillation, model_input$atypical_antipsy, model_input$regular_steroid_tablets,
+           model_input$erectile_disfunction, model_input$migraine, model_input$rheumatoid_arthritis, model_input$chronic_kidney_disease, 
+           model_input$severe_mental_illness, model_input$systemic_lupus_erythematosis, model_input$blood_pressure_treatment, model_input$diabetes1,
+           model_input$diabetes2, model_input$weight, model_input$height, model_input$ethiniciy, model_input$heart_attack_relative, 
+           model_input$cholesterol_HDL_ratio, model_input$systolic_blood_pressure, model_input$std_systolic_blood_pressure, model_input$smoke,
+           model_input$townsend)
+    df <- data.frame(a,b)
+    df <- pivot_wider(df, names_from = a, values_from = b)
+    results <- QRISK3_2017(data       = df,
+                         patid       = df$patid,
+                         gender       = df$gender,
+                         age       = df$age,
+                         atrial_fibrillation       = df$atrial_fibrillation,
+                         atypical_antipsy       = df$atypical_antipsy,
+                         regular_steroid_tablets       = df$regular_steroid_tablets,
+                         erectile_disfunction       = df$erectile_disfunction,
+                         migraine       = df$migraine,
+                         rheumatoid_arthritis       = df$rheumatoid_arthritis,
+                         chronic_kidney_disease       = df$chronic_kidney_disease,
+                         severe_mental_illness       = df$severe_mental_illness,
+                         systemic_lupus_erythematosis       = df$systemic_lupus_erythematosis,
+                         blood_pressure_treatment       = df$blood_pressure_treatment,
+                         diabetes1       = df$diabetes1,
+                         diabetes2       = df$diabetes2,
+                         weight       = df$weight,
+                         height       = df$height,
+                         ethiniciy       = df$ethiniciy,
+                         heart_attack_relative       = df$heart_attack_relative,
+                         cholesterol_HDL_ratio       = df$cholesterol_HDL_ratio,
+                         systolic_blood_pressure       = df$systolic_blood_pressure,
+                         std_systolic_blood_pressure       = df$std_systolic_blood_pressure,
+                         smoke       = df$smoke,
+                         townsend       = df$townsend)
+
+  score <- results$QRISK3_2017
+  results <- list()
+  results$score <- score
+  return(results)
+  } else {
+      results <- QRISK3_2017(data       = model_input$data,
                          patid       = model_input$patid,
                          gender       = model_input$gender,
                          age       = model_input$age,
@@ -46,9 +89,11 @@ model_run<-function(model_input = NULL)
                          std_systolic_blood_pressure       = model_input$std_systolic_blood_pressure,
                          smoke       = model_input$smoke,
                          townsend       = model_input$townsend)
-
-
-  return(as.list(results))
+  score <- results$QRISK3_2017
+  results <- list()
+  results$score <- score
+  return(results)
+  }
 }
 
 prism_get_default_input <- function() {
