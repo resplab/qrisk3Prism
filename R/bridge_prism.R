@@ -19,9 +19,6 @@
 
 model_run<-function(model_input = NULL)
 {
-
-  # input<-unflatten_list(model_input)
-
   do.call(QRISK3_2017,model_input)
 }
 
